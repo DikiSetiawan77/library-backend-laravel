@@ -1,43 +1,25 @@
-<?php
+POST http://localhost:8000/api/login
+Content-Type: application/json
+Accept: application/json
 
-namespace App\Http\Controllers;
-
-use App\Models\Book;
-use Illuminate\Http\Request;
-
-class BookController extends Controller
 {
-    // Menampilkan semua buku
-    public function index()
-    {
-        return response()->json(Book::all());
-    }
+    "email": "admin@mail.com",
+    "password": "password"
+}
 
-    // Menambah buku baru (Admin Only)
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'judul' => 'required|string',
-            'penulis' => 'required|string',
-            'stok' => 'required|integer',
-        ]);
+### Get All Books
+GET http://localhost:8000/api/books
+Authorization: Bearer 4|5prodrpDCfCck6WCUeCAO9XH1Pg7QEpCZUkEe14ja6630081
+Accept: application/json
 
-        $book = Book::create($validated);
-        return response()->json(['message' => 'Buku berhasil ditambah', 'data' => $book], 201);
-    }
+### Add New Book
+POST http://localhost:8000/api/books
+Authorization: Bearer 4|5prodrpDCfCck6WCUeCAO9XH1Pg7QEpCZUkEe14ja6630081
+Content-Type: application/json
+Accept: application/json
 
-    // Update data buku
-    public function update(Request $request, $id)
-    {
-        $book = Book::findOrFail($id);
-        $book->update($request->all());
-        return response()->json(['message' => 'Buku berhasil diupdate', 'data' => $book]);
-    }
-
-    // Hapus buku
-    public function destroy($id)
-    {
-        Book::destroy($id);
-        return response()->json(['message' => 'Buku berhasil dihapus']);
-    }
+{
+    "judul": "Filosofi Teras",
+    "penulis": "Henry Manampiring",
+    "stok": 12
 }
