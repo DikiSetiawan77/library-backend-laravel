@@ -9,12 +9,12 @@ Accept: application/json
 
 ### Get All Books
 GET http://localhost:8000/api/books
-Authorization: Bearer 4|5prodrpDCfCck6WCUeCAO9XH1Pg7QEpCZUkEe14ja6630081
+Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
 Accept: application/json
 
 ### Add New Book
 POST http://localhost:8000/api/books
-Authorization: Bearer 4|5prodrpDCfCck6WCUeCAO9XH1Pg7QEpCZUkEe14ja6630081
+Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
 Content-Type: application/json
 Accept: application/json
 
@@ -22,4 +22,14 @@ Accept: application/json
     "judul": "Filosofi Teras",
     "penulis": "Henry Manampiring",
     "stok": 12
+}
+
+### Pinjam Buku 
+POST http://localhost:8000/api/borrow
+Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
+Content-Type: application/json
+Accept: application/json
+
+{
+    "book_id": 1
 }

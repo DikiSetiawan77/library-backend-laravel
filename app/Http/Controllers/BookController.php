@@ -2,47 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Menampilkan semua buku
     public function index()
     {
-        //
+        return response()->json(Book::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Menambah buku baru (Admin Only)
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'judul' => 'required|string',
+            'penulis' => 'required|string',
+            'stok' => 'required|integer',
+        ]);
+
+        $book = Book::create($validated);
+        return response()->json(['message' => 'Buku berhasil ditambah', 'data' => $book], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Update data buku
+    public function update(Request $request, $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $book->update($request->all());
+        return response()->json(['message' => 'Buku berhasil diupdate', 'data' => $book]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Hapus buku
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Book::destroy($id);
+        return response()->json(['message' => 'Buku berhasil dihapus']);
     }
 }
