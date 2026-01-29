@@ -17,6 +17,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('books', BookController::class);
     Route::post('/borrow', [TransactionController::class, 'borrow']);
+    Route::post('/return', [TransactionController::class, 'returnBook']);
     Route::post('/logout', [AuthController::class, 'logout']);
     
     // Nanti route buku & transaksi taruh di sini
