@@ -1,45 +1,26 @@
-POST http://localhost:8000/api/login
-Content-Type: application/json
-Accept: application/json
+<?php
 
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
 {
-    "email": "admin@mail.com",
-    "password": "password"
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        // Menambahkan kolom photo_path setelah kolom email
+        $table->string('photo_path')->nullable()->after('email');
+    });
 }
 
-### Get All Books
-GET http://localhost:8000/api/books
-Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
-Accept: application/json
-
-### Add New Book
-POST http://localhost:8000/api/books
-Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
-Content-Type: application/json
-Accept: application/json
-
+public function down(): void
 {
-    "judul": "Filosofi Teras",
-    "penulis": "Henry Manampiring",
-    "stok": 12
-}
-
-### Pinjam Buku 
-POST http://localhost:8000/api/borrow
-Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
-Content-Type: application/json
-Accept: application/json
-
-{
-    "book_id": 1
-}
-
-### Kembali Buku
-POST http://localhost:8000/api/return
-Authorization: Bearer 5|B42cXSxEH7ipwGJKPqQToMZE8iUT8SOMw3g0PVAA2726cb8a
-Content-Type: application/json
-Accept: application/json
-
-{
-    "transaction_id": 2
-}
+    Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('photo_path');
+    });
+}  
+};
