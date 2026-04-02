@@ -14,6 +14,7 @@ return new class extends Migration
         $table->enum('role', ['admin', 'siswa'])->default('siswa');
     });
 }
+
     /**
      * Reverse the migrations.
      */
